@@ -12,7 +12,10 @@
 </ul>
 
 <hr>
-
+<form class="d-flex mb-3" action="{% url 'search_articles' %}" method="get">
+    <input class="form-control me-2" type="text" name="q" placeholder="Search articles...">
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
 <!-- Show latest articles only -->
 <h2>📰 Recent Posts</h2>
 <ul>
