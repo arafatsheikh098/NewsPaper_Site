@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>📂 Category: {{ category.name }}</h2>
+
+<!-- List categories again -->
+<h3>Categories</h3>
+<ul>
+    {% for cat in categories %}
+        <li><a href="{% url 'category_articles' cat.id %}">{{ cat.name }}</a></li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- Articles from selected category -->
+<ul>
+    {% for article in articles %}
+        <li>
+            <a href="{% url 'article_detail' article.id %}">{{ article.title }}</a>
+            ({{ article.date_posted|date:"M d, Y" }})
+        </li>
+    {% empty %}
+        <li>No articles in this category.</li>
+    {% endfor %}
+</ul>
+
+<a href="/">← Back to All News</a>
+{% endblock %}
