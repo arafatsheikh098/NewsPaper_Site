@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import Article, Category
 from django.db.models import Q 
 from django.utils import timezone
+from .forms import CommentForm
 
 def home(request):
     query = request.GET.get('q')  # q is the input name in our form
@@ -26,7 +27,19 @@ def category_articles(request, category_id):
     })
 def article_detail(request, article_id):
     article = get_object_or_404(Article, id=article_id)
-    return render(request, 'article_detail.html', {'article': article,'now': timezone.now()})
+    comments = article.comments.all().order_by('-created_at')
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article = article
+            comment.save()
+            return redirect('article_detail', article_id=article.id)
+    else:
+        form = CommentForm()
+    return render(request, 'article_detail.html', {'article': article,'now': timezone.now(),'comments': comments,
+        'form': form})
 
 
 def search_articles(request):

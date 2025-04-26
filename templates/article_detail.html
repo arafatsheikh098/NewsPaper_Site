@@ -8,6 +8,26 @@
 <p>{{ article.content }}</p>
 <p>author: {{ article.author_name }}</p>
 <p><em>Posted on: {{ article.date_posted }}</em></p>
+<h3>Comments</h3>
+<ul>
+    {% for comment in comments %}
+        <li><strong>{{ comment.name }}</strong> ({{ comment.created_at|date:"F j, Y H:i" }}):<br>
+            {{ comment.text }}
+        </li>
+    {% empty %}
+        <li>No comments yet.</li>
+    {% endfor %}
+</ul>
+
+<h4>Add a Comment</h4>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+
 <a href="/">← Back to Home</a>
+
 {% endblock %}
 
