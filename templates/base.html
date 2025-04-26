@@ -62,3 +62,41 @@
     </div>
 </body>
 </html>
+<footer style="background-color: #1e90ff; color: white; padding: 30px 20px; margin-top: 40px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: auto;">
+
+        <!-- Website Info -->
+        <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
+            <h3>📰 Newspaper Site</h3>
+            <p>Your trusted source for the latest news and updates.</p>
+        </div>
+
+        <!-- Contact Info -->
+        <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
+            <h4>📍 Location</h4>
+            <p>123 News Lane,<br>Dhaka, Bangladesh</p>
+
+            <h4>📞 Contact</h4>
+            <p>Phone: +880 123 456 789</p>
+            <p>Email: info@newspapersite.com</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
+            <h4>🔗 Quick Links</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="{% url 'home' %}" style="color: white; text-decoration: none;">🏠 Home</a></li>
+                {% for cat in categories %}
+                    <li><a href="{% url 'category_articles' cat.id %}" style="color: white; text-decoration: none;">📂 {{ cat.name }}</a></li>
+                {% endfor %}
+                <li><a href="#" style="color: white; text-decoration: none;">ℹ️ About Us</a></li>
+                <li><a href="#" style="color: white; text-decoration: none;">📄 Privacy Policy</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <hr style="border-color: white; margin: 20px 0;">
+
+    <p style="text-align: center;">&copy; {{ now|date:"Y" }} Newspaper Site. All rights reserved.</p>
+</footer>
+

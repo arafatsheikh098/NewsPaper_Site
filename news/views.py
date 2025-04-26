@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Article, Category
 from django.db.models import Q 
+from django.utils import timezone
 
 def home(request):
     query = request.GET.get('q')  # q is the input name in our form
@@ -11,7 +12,7 @@ def home(request):
     else:
         articles = Article.objects.all().order_by('-date_posted')[:5] 
     categories = Category.objects.all()
-    return render(request, 'home.html', {'articles': articles, 'categories': categories, 'query': query})
+    return render(request, 'home.html', {'articles': articles, 'categories': categories,'now': timezone.now(), 'query': query})
 
 def category_articles(request, category_id):
     category = get_object_or_404(Category, id=category_id)
@@ -20,11 +21,12 @@ def category_articles(request, category_id):
     return render(request, 'category_articles.html', {
         'category': category,
         'articles': articles,
-        'categories': categories
+        'categories': categories,
+        'now': timezone.now(),
     })
 def article_detail(request, article_id):
     article = get_object_or_404(Article, id=article_id)
-    return render(request, 'article_detail.html', {'article': article})
+    return render(request, 'article_detail.html', {'article': article,'now': timezone.now()})
 
 
 def search_articles(request):

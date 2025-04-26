@@ -2,8 +2,11 @@
 
 {% block content %}
 <h2>{{ article.title }}</h2>
+{% if article.image %}
+<img src="{{ article.image.url }}" alt="Article Image" width="300">
+{% endif %}
 <p>{{ article.content }}</p>
-<p>By {{ article.author_name }}</p>
+<p>author: {{ article.author_name }}</p>
 <p><em>Posted on: {{ article.date_posted }}</em></p>
 <a href="/">← Back to Home</a>
 {% endblock %}

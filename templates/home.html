@@ -22,6 +22,9 @@
     {% for article in articles %}
         <li>
             <a href="{% url 'article_detail' article.id %}">{{ article.title }}</a>
+            {% if article.image %}
+             <img src="{{ article.image.url }}" alt="Article Image" width="300">
+            {% endif %}
             ({{ article.date_posted|date:"M d, Y" }}) - <em>{{ article.category.name }}</em>
         </li>
     {% endfor %}

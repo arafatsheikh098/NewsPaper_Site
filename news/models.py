@@ -12,6 +12,7 @@ class Article(models.Model):
     author_name = models.CharField(max_length=100)
     date_posted = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='article_images/', null=True, blank=True)
     def __str__(self):
         return self.title
 
