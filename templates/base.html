@@ -1,11 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Newspaper Site</title>
+    <title>🗞️ Newspaper Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #1e90ff;
+            padding: 10px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+        }
+        .content {
+            padding: 20px;
+        }
+        .search-box input[type="text"] {
+            padding: 5px;
+        }
+        .search-box button {
+            padding: 5px 10px;
+            margin-left: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1><a href="/">📰 Newspaper Site</a></h1>
-    <hr>
-    {% block content %}{% endblock %}
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="{% url 'home' %}">🏠 Home</a>
+            {% for cat in categories %}
+                <a href="{% url 'category_articles' cat.id %}">{{ cat.name }}</a>
+            {% endfor %}
+        </div>
+        <div class="nav-right">
+            <form class="d-flex mb-3" action="{% url 'search_articles' %}" method="get">
+                <input class="form-control me-2" type="text" name="q" placeholder="Search articles...">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 </html>

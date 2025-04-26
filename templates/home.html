@@ -3,19 +3,19 @@
 {% block content %}
 
 
-<!-- Category list -->
+<!-- Category list
 <h3>Browse by Category</h3>
 <ul>
     {% for cat in categories %}
         <li><a href="{% url 'category_articles' cat.id %}">{{ cat.name }}</a></li>
     {% endfor %}
-</ul>
+</ul> -->
 
 <hr>
-<form class="d-flex mb-3" action="{% url 'search_articles' %}" method="get">
+<!-- <form class="d-flex mb-3" action="{% url 'search_articles' %}" method="get">
     <input class="form-control me-2" type="text" name="q" placeholder="Search articles...">
     <button class="btn btn-primary" type="submit">Search</button>
-</form>
+</form> -->
 <!-- Show latest articles only -->
 <h2>📰 Recent Posts</h2>
 <ul>
