@@ -7,6 +7,9 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+        min-height: 100vh; /* Full height of viewport */
+        display: flex;
+        flex-direction: column;
         }
         .navbar {
             background-color: #1e90ff;
@@ -38,6 +41,16 @@
             padding: 5px 10px;
             margin-left: 5px;
         }
+        .content {
+        flex: 1; /* 🛠 Make content area grow */
+        padding: 20px;
+    }
+        footer {
+        background-color: #1e90ff;
+        color: white;
+        padding: 30px 20px;
+        margin-top: 40px;
+    }
     </style>
 </head>
 <body>
@@ -73,10 +86,10 @@
         <!-- Contact Info -->
         <div style="flex: 1; min-width: 200px; margin-bottom: 20px;">
             <h4>📍 Location</h4>
-            <p>123 News Lane,<br>Dhaka, Bangladesh</p>
+            <p>Mohammodpur,<br>Dhaka, Bangladesh</p>
 
             <h4>📞 Contact</h4>
-            <p>Phone: +880 123 456 789</p>
+            <p>Phone: +8801825741448</p>
             <p>Email: info@newspapersite.com</p>
         </div>
 

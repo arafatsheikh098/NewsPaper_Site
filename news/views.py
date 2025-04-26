@@ -3,9 +3,11 @@ from .models import Article, Category
 from django.db.models import Q 
 from django.utils import timezone
 from .forms import CommentForm
+from django.contrib.auth import login
+from .forms import SignUpForm
 
 def home(request):
-    query = request.GET.get('q')  # q is the input name in our form
+    query = request.GET.get('q') 
     if query:
         articles = Article.objects.filter(
             Q(title__icontains=query) | Q(content__icontains=query)
@@ -30,12 +32,16 @@ def article_detail(request, article_id):
     comments = article.comments.all().order_by('-created_at')
 
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.article = article
-            comment.save()
-            return redirect('article_detail', article_id=article.id)
+        if request.user.is_authenticated:
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.article = article
+                comment.user = request.user
+                comment.save()
+                return redirect('article_detail', article_id=article.id)
+        else:
+            return redirect('login')
     else:
         form = CommentForm()
     return render(request, 'article_detail.html', {'article': article,'now': timezone.now(),'comments': comments,
@@ -46,3 +52,16 @@ def search_articles(request):
     query = request.GET.get('q')
     articles = Article.objects.filter(title__icontains=query) if query else []
     return render(request, 'search_results.html', {'articles': articles, 'query': query})
+
+
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  
+            return redirect('home')  
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
