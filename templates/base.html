@@ -56,6 +56,8 @@
 <body>
     <div class="navbar">
         <div class="nav-left">
+            <!-- <h1>Newspaper</h1>
+            <br> -->
             <a href="{% url 'home' %}">🏠 Home</a>
             {% for cat in categories %}
                 <a href="{% url 'category_articles' cat.id %}">{{ cat.name }}</a>
